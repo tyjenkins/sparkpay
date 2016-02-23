@@ -6,11 +6,6 @@ import com.payments.model.AccountTransfers;
 import com.payments.model.Transaction;
 import com.payments.service.impl.AccountService;
 import com.payments.service.impl.TransactionService;
-import freemarker.cache.ClassTemplateLoader;
-import freemarker.template.Configuration;
-import org.eclipse.jetty.util.MultiMap;
-import org.eclipse.jetty.util.UrlEncoded;
-import org.springframework.beans.BeanUtils;
 import spark.ModelAndView;
 import spark.template.freemarker.FreeMarkerEngine;
 

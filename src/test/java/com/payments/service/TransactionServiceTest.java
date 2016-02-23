@@ -1,6 +1,5 @@
 package com.payments.service;
 
-import com.payments.model.Account;
 import com.payments.model.AccountTransfers;
 import com.payments.model.Transaction;
 import com.payments.service.impl.AccountService;
@@ -10,7 +9,6 @@ import org.junit.Test;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertThat;
