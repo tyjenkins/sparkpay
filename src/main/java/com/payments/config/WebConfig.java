@@ -1,7 +1,16 @@
 package com.payments.config;
 
+import com.payments.model.AccountTransfers;
 import com.payments.service.impl.AccountService;
 import com.payments.service.impl.TransactionService;
+import freemarker.cache.ClassTemplateLoader;
+import freemarker.template.Configuration;
+import spark.ModelAndView;
+import spark.template.freemarker.FreeMarkerEngine;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import static spark.Spark.before;
 import static spark.Spark.get;
@@ -13,13 +22,17 @@ import static spark.SparkBase.staticFileLocation;
  */
 public class WebConfig {
 
-    private AccountService paymentsService;
-    private TransactionService transactionService;
+    private AccountTransfers accountTransfers = new AccountTransfers();
+    AccountService accountService;
+    TransactionService transactionService;
 
-    public WebConfig(AccountService paymentsService, TransactionService transactionService) {
-        this.paymentsService = paymentsService;
+    public WebConfig(AccountService accountService, TransactionService transactionService) {
+        this.accountService = accountService;
         this.transactionService = transactionService;
+        this.accountTransfers.setAccounts(accountService.getInitialAccounts());
+
         staticFileLocation("/");
+
         setupRoutes();
     }
 
@@ -35,7 +48,13 @@ public class WebConfig {
 		/*
 		 * Shows the transactions page
 		 */
-        get("/transactions", (req, res) -> "Hello Trans");
+        get("/transactions", (req, res) -> {
+            Map<String, Object> map = new HashMap<>();
+            map.put("pageTitle", "Timeline");
+            List<String> accountsList = accountService.getAccountNamesForDropDown(accountTransfers.getAccounts());
+            map.put("accountsList", accountsList);
+            return new ModelAndView(map, "transactions.ftl");
+        }, new FreeMarkerEngine());
 
         /*
 		 * Shows the pay page

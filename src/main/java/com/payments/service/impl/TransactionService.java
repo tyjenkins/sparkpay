@@ -3,12 +3,12 @@ package com.payments.service.impl;
 import com.payments.model.Account;
 import com.payments.model.AccountTransfers;
 import com.payments.model.Transaction;
-
-import java.util.Map;
+import org.springframework.stereotype.Service;
 
 /**
  * Created by Jenkins on 23/02/2016.
  */
+@Service
 public class TransactionService {
     public AccountTransfers transfer(AccountTransfers accountTransfers, String accountA, String accountB, Integer amount) {
         Account modA = accountTransfers.getAccounts().get(accountA);
