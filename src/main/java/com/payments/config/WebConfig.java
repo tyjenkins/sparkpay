@@ -27,10 +27,14 @@ public class WebConfig {
     }
 
     private void setupRoutes() {
+        /*
+		 * Redirects / to the transactions page
+		 */
         before("/", (req, res) -> {
             res.redirect("/transactions");
             halt();
         });
+
 		/*
 		 * Shows the transactions page
 		 */
