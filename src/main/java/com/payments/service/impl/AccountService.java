@@ -10,13 +10,17 @@ import java.util.zip.Inflater;
  * Created by Jenkins on 23/02/2016.
  */
 @Service
-public class PaymentsService {
+public class AccountService {
+
+    public static final String ACC_1 = "Acc 1";
+    public static final String ACC_2 = "Acc 2";
+    public static final String ACC_3 = "Acc 3";
 
     public Map<String, Account> getInitialAccounts() {
         Map<String, Account> accounts = new HashMap<String, Account>();
-        accounts.put("Acc 1", new Account("Acc 1", Account.STARTING_BALANCE, "Acc 1 email"));
-        accounts.put("Acc 2", new Account("Acc 2", Account.STARTING_BALANCE, "Acc 2 email"));
-        accounts.put("Acc 3", new Account("Acc 3", Account.STARTING_BALANCE, "Acc 3 email"));
+        accounts.put(ACC_1, new Account(ACC_1, Account.STARTING_BALANCE, ACC_1 + " email"));
+        accounts.put(ACC_2, new Account(ACC_2, Account.STARTING_BALANCE, ACC_2 + " email"));
+        accounts.put(ACC_3, new Account(ACC_3, Account.STARTING_BALANCE, ACC_3 + " email"));
 
         return accounts;
     }
@@ -26,12 +30,6 @@ public class PaymentsService {
         accounts.forEach((k,v) -> accountList.add(k));
 
         return accountList;
-    }
-
-    public Map<String, Account> transferAmountFromAccountAToB(Map<String, Account> accounts, String accountA,
-                                                              String accountB, Integer amount) {
-
-        return accounts;
     }
 
 }
