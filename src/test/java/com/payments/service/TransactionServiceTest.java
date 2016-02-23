@@ -39,6 +39,14 @@ public class TransactionServiceTest {
     }
 
     @Test
+    public void transfer_Should_WriteSuccessMessage_When_AmountDoesNotExceedAvailableInA() {
+        AccountTransfers result = transactionService.transfer(
+                accountTransfers, AccountService.ACC_1, AccountService.ACC_3, 100);
+
+        assertThat(result.getMessage(), is(AccountTransfers.TRANSFER_SUCCESS));
+    }
+
+    @Test
     public void transfer_Should_NotMoveAmountFromAToB_When_AmountDoesExceedAvailableInA() {
         AccountTransfers result = transactionService.transfer(
                 accountTransfers, AccountService.ACC_1, AccountService.ACC_3, 300);

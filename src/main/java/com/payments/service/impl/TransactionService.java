@@ -25,6 +25,7 @@ public class TransactionService {
             accountTransfers.getAccounts().put(accountB, modB);
 
             accountTransfers.getTransactions().add(new Transaction(accountA, accountB, amount));
+            accountTransfers.setMessage(AccountTransfers.TRANSFER_SUCCESS);
         }
 
         return accountTransfers;
