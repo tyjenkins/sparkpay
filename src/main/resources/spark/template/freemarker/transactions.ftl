@@ -8,7 +8,7 @@
         <h2>Accounts</h2>
         <form action="/transactions" method="post">
             <b>Person:</b>
-            <select id="acc" name="acc">
+            <select id="accDropDown" name="accDropDown">
                 <#list accountsList as account>
                     <option value="${account}">${account}</option>
                 </#list>
@@ -18,7 +18,7 @@
             <div class="actions"><input type="submit" value="Submit"></div>
         </form>
         <br>
-        <div>Balance: £ ${account.balance}</div>
+        <div>Balance: £ ${account.balance} for account ${account.name}</div>
 
         <ul class="transactions">
             <#if transactionList??>

@@ -13,9 +13,9 @@ import java.util.zip.Inflater;
 @Service
 public class AccountService {
 
-    public static final String ACC_1 = "Acc 1";
-    public static final String ACC_2 = "Acc 2";
-    public static final String ACC_3 = "Acc 3";
+    public static final String ACC_1 = "Acc1";
+    public static final String ACC_2 = "Acc2";
+    public static final String ACC_3 = "Acc3";
 
     public Map<String, Account> getInitialAccounts() {
         Map<String, Account> accounts = new HashMap<String, Account>();

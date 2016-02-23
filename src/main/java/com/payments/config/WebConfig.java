@@ -69,12 +69,21 @@ public class WebConfig {
 		 * Shows the transactions page
 		 */
         post("/transactions", (req, res) -> {
+            String selectedAccount = "";
+            if (req.body().endsWith(AccountService.ACC_1)) {
+                selectedAccount = AccountService.ACC_1;
+            } else if (req.body().endsWith(AccountService.ACC_2)) {
+                selectedAccount = AccountService.ACC_2;
+            } else if (req.body().endsWith(AccountService.ACC_3)) {
+                selectedAccount = AccountService.ACC_3;
+            }
+
             Map<String, Object> map = new HashMap<>();
 
-            List<Transaction> transactionList = transactionService.getTransactionsForAccount(accountTransfers, "Acc 1");
+            List<Transaction> transactionList = transactionService.getTransactionsForAccount(accountTransfers, selectedAccount);
             map.put("transactionList", transactionList);
 
-            Account account = accountService.getAccountByName(accountTransfers, "Acc 1");
+            Account account = accountService.getAccountByName(accountTransfers, selectedAccount);
             map.put("account", account);
 
             List<String> accountsList = accountService.getAccountNamesForDropDown(accountTransfers.getAccounts());
