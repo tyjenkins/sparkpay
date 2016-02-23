@@ -1,6 +1,8 @@
 package com.payments.service.impl;
 
 import com.payments.model.Account;
+import com.payments.model.AccountTransfers;
+import com.payments.model.Transaction;
 
 import java.util.Map;
 
@@ -8,16 +10,18 @@ import java.util.Map;
  * Created by Jenkins on 23/02/2016.
  */
 public class TransactionService {
-    public Map<String, Account> transfer(Map<String, Account> accounts, String accountA, String accountB, Integer amount) {
-        Account modA = accounts.get(accountA);
-        Account modB = accounts.get(accountB);
+    public AccountTransfers transfer(AccountTransfers accountTransfers, String accountA, String accountB, Integer amount) {
+        Account modA = accountTransfers.getAccounts().get(accountA);
+        Account modB = accountTransfers.getAccounts().get(accountB);
 
         modA.setBalance(modA.getBalance() - amount);
         modB.setBalance(modB.getBalance() + amount);
 
-        accounts.put(accountA, modA);
-        accounts.put(accountB, modB);
+        accountTransfers.getAccounts().put(accountA, modA);
+        accountTransfers.getAccounts().put(accountB, modB);
 
-        return accounts;
+        accountTransfers.getTransactions().add(new Transaction(accountA, accountB, amount));
+
+        return accountTransfers;
     }
 }

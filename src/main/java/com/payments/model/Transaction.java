@@ -8,6 +8,12 @@ public class Transaction {
     private String toAcc;
     private Integer amount;
 
+    public Transaction(String fromAcc, String toAcc, Integer amount) {
+        this.fromAcc = fromAcc;
+        this.toAcc = toAcc;
+        this.amount = amount;
+    }
+
     public String getFromAcc() {
         return fromAcc;
     }
