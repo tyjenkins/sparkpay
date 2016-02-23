@@ -14,7 +14,7 @@ public class TransactionService {
         Account modA = accountTransfers.getAccounts().get(accountA);
         Account modB = accountTransfers.getAccounts().get(accountB);
 
-        if (modA.getBalance() - amount > 0) {
+        if (modA.getBalance() - amount >= 0) {
             modA.setBalance(modA.getBalance() - amount);
             modB.setBalance(modB.getBalance() + amount);
 

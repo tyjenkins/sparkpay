@@ -46,6 +46,16 @@ public class TransactionServiceTest {
     }
 
     @Test
+    public void transfer_Should_MoveAmountFromAToB_When_AmountIsEqualToAvailableInA() {
+        AccountTransfers result = transactionService.transfer(
+                accountTransfers, AccountService.ACC_1, AccountService.ACC_3, 200);
+
+        assertThat(result.getAccounts().get(AccountService.ACC_1).getBalance(), is(0));
+        assertThat(result.getAccounts().get(AccountService.ACC_2).getBalance(), is(200));
+        assertThat(result.getAccounts().get(AccountService.ACC_3).getBalance(), is(400));
+    }
+
+    @Test
     public void transfer_Should_RecordTransaction_When_AmountDoesNotExceedAvailableInA() {
         AccountTransfers result = transactionService.transfer(
                 accountTransfers, AccountService.ACC_1, AccountService.ACC_3, 100);
@@ -54,5 +64,24 @@ public class TransactionServiceTest {
         assertThat(result.getTransactions().get(0).getFromAcc(), is(AccountService.ACC_1));
         assertThat(result.getTransactions().get(0).getToAcc(), is(AccountService.ACC_3));
         assertThat(result.getTransactions().get(0).getAmount(), is(100));
+    }
+
+    @Test
+    public void transfer_Should_NotRecordTransaction_When_AmountDoesExceedAvailableInA() {
+        AccountTransfers result = transactionService.transfer(
+                accountTransfers, AccountService.ACC_1, AccountService.ACC_3, 300);
+
+        assertThat(result.getTransactions().size(), is(0));
+    }
+
+    @Test
+    public void transfer_Should_RecordTransaction_When_AmountIsEqualToAvailableInA() {
+        AccountTransfers result = transactionService.transfer(
+                accountTransfers, AccountService.ACC_1, AccountService.ACC_3, 200);
+
+        assertThat(result.getTransactions().size(), is(1));
+        assertThat(result.getTransactions().get(0).getFromAcc(), is(AccountService.ACC_1));
+        assertThat(result.getTransactions().get(0).getToAcc(), is(AccountService.ACC_3));
+        assertThat(result.getTransactions().get(0).getAmount(), is(200));
     }
 }
