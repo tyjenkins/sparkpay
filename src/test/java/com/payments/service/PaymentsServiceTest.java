@@ -5,6 +5,7 @@ import com.payments.service.impl.PaymentsService;
 import org.junit.Test;
 
 import java.util.List;
+import java.util.Map;
 
 import static org.junit.Assert.assertThat;
 import static org.hamcrest.Matchers.is;
@@ -22,7 +23,15 @@ public class PaymentsServiceTest {
         assertThat(result.size(), is(3));
 
         result.forEach((temp) -> {
-            assertThat(paymentsService.getInitialAccounts().contains(new Account(temp,1,"em")), is(true));
+            assertThat(paymentsService.getInitialAccounts().containsKey(temp), is(true));
         });
+    }
+
+    @Test
+    public void transferAmountFromAccountAToB_Should_MoveAmountFromAToB_When_AmountDoesNotExceedAvailableInA() {
+        Map<String, Account> result = paymentsService.transferAmountFromAccountAToB(
+                paymentsService.getInitialAccounts(), "Acc 1", "Acc 3", 100);
+
+        //assertThat(result)
     }
 }
