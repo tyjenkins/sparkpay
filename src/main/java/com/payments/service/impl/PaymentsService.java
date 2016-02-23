@@ -3,7 +3,9 @@ package com.payments.service.impl;
 import com.payments.model.Account;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -19,6 +21,13 @@ public class PaymentsService {
         accounts.add(new Account("Acc 3", Account.STARTING_BALANCE, "Acc 3 email"));
 
         return accounts;
+    }
+
+    public List<String> getAccountNamesForDropDown(Set<Account> accounts) {
+        List<String> accountList = new ArrayList<>();
+        accounts.forEach(p -> accountList.add(p.getName()));
+
+        return accountList;
     }
 
 }
