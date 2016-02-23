@@ -6,12 +6,11 @@
     <body>
     <div>
         <h2>Accounts</h2>
-        <br/>
-        <#list accountsList as account>
-            <div class="account">
-                <h2>${account}</h2>
-            </div>
-        </#list>
+        <select>
+            <#list accountsList as account>
+                <option value="${account}">${account}</option>
+            </#list>
+        </select>
         [ errors go here ]
         <b>Person:</b> [ from Account.list() ]
         <b>[ submit ]</b>
