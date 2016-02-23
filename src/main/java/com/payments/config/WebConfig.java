@@ -53,8 +53,16 @@ public class WebConfig {
 		 */
         get("/transactions", (req, res) -> {
             Map<String, Object> map = new HashMap<>();
+
             List<String> accountsList = accountService.getAccountNamesForDropDown(accountTransfers.getAccounts());
             map.put("accountsList", accountsList);
+
+            Account account = accountService.getAccountByName(accountTransfers, accountsList.get(0));
+            map.put("account", account);
+
+            List<Transaction> transactionList = transactionService.getTransactionsForAccount(accountTransfers, accountsList.get(0));
+            map.put("transactionList", transactionList);
+
             return new ModelAndView(map, "transactions.ftl");
         }, new FreeMarkerEngine());
         /*

@@ -17,5 +17,4 @@ public class App {
         new WebConfig(ctx.getBean(AccountService.class), ctx.getBean(TransactionService.class));
         ctx.registerShutdownHook();
     }
-
 }

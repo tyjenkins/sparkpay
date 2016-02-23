@@ -8,7 +8,7 @@
         <h2>Accounts</h2>
         <form action="/transactions" method="post">
             <b>Person:</b>
-            <select>
+            <select id="acc" name="acc">
                 <#list accountsList as account>
                     <option value="${account}">${account}</option>
                 </#list>
@@ -19,7 +19,18 @@
         </form>
         <br>
         <div>Balance: £ ${account.balance}</div>
-        <div>some awesome table with transaction amounts</div>
+
+        <ul class="transactions">
+            <#if transactionList??>
+                <#list transactionList as transaction>
+                    <li>${transaction.fromAcc} ${transaction.toAcc} ${transaction.amount}
+                        <#else>
+                    <li>There're no transactions.
+                </#list>
+                <#else>
+                    <li>There're no transactions
+            </#if>
+        </ul>
     </div>
     </body>
 </html>
