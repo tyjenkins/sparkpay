@@ -66,7 +66,7 @@ public class WebConfig {
             return new ModelAndView(map, "transactions.ftl");
         }, new FreeMarkerEngine());
         /*
-		 * Shows the transactions page
+		 * Submits the transactions page
 		 */
         post("/transactions", (req, res) -> {
             String selectedAccount = "";
@@ -95,6 +95,26 @@ public class WebConfig {
         /*
 		 * Shows the pay page
 		 */
-        get("/pay", (req, res) -> "Hello Pay");
+        get("/pay", (req, res) -> {
+            Map<String, Object> map = new HashMap<>();
+
+            List<String> accountsList = accountService.getAccountNamesForDropDown(accountTransfers.getAccounts());
+            map.put("accountsList", accountsList);
+
+            return new ModelAndView(map, "pay.ftl");
+        }, new FreeMarkerEngine());
+        /*
+		 * Shows the pay page
+		 */
+        post("/pay", (req, res) -> {
+            String body = req.body();
+
+            Map<String, Object> map = new HashMap<>();
+
+            List<String> accountsList = accountService.getAccountNamesForDropDown(accountTransfers.getAccounts());
+            map.put("accountsList", accountsList);
+
+            return new ModelAndView(map, "pay.ftl");
+        }, new FreeMarkerEngine());
     }
 }
