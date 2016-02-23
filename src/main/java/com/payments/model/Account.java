@@ -1,0 +1,36 @@
+package com.payments.model;
+
+/**
+ * Created by Jenkins on 23/02/2016.
+ */
+public class Account {
+    public static final Integer STARTING_BALANCE = 200;
+
+    private String name;
+    private Integer balance;
+    private String email;
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public Integer getBalance() {
+        return balance;
+    }
+
+    public void setBalance(Integer balance) {
+        this.balance = balance;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+}
