@@ -1,11 +1,15 @@
 package com.payments.config;
 
+import com.payments.model.Account;
 import com.payments.model.AccountTransfers;
 import com.payments.model.Transaction;
 import com.payments.service.impl.AccountService;
 import com.payments.service.impl.TransactionService;
 import freemarker.cache.ClassTemplateLoader;
 import freemarker.template.Configuration;
+import org.eclipse.jetty.util.MultiMap;
+import org.eclipse.jetty.util.UrlEncoded;
+import org.springframework.beans.BeanUtils;
 import spark.ModelAndView;
 import spark.template.freemarker.FreeMarkerEngine;
 
@@ -58,8 +62,16 @@ public class WebConfig {
 		 */
         post("/transactions", (req, res) -> {
             Map<String, Object> map = new HashMap<>();
-            //List<Transaction> transactionList = transactionService.get(accountTransfers.getAccounts());
-            //map.put("transactionList", transactionList);
+
+            List<Transaction> transactionList = transactionService.getTransactionsForAccount(accountTransfers, "Acc 1");
+            map.put("transactionList", transactionList);
+
+            Account account = accountService.getAccountByName(accountTransfers, "Acc 1");
+            map.put("account", account);
+
+            List<String> accountsList = accountService.getAccountNamesForDropDown(accountTransfers.getAccounts());
+            map.put("accountsList", accountsList);
+
             return new ModelAndView(map, "transactions.ftl");
         }, new FreeMarkerEngine());
 

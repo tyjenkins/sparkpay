@@ -1,6 +1,7 @@
 package com.payments.service.impl;
 
 import com.payments.model.Account;
+import com.payments.model.AccountTransfers;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
@@ -32,4 +33,7 @@ public class AccountService {
         return accountList;
     }
 
+    public Account getAccountByName(AccountTransfers accountTransfers, String account) {
+        return accountTransfers.getAccounts().get(account);
+    }
 }

@@ -1,5 +1,6 @@
 package com.payments.service;
 
+import com.payments.model.Account;
 import com.payments.model.AccountTransfers;
 import com.payments.service.impl.AccountService;
 import org.junit.Before;
@@ -31,5 +32,14 @@ public class AccountServiceTest {
         result.forEach((temp) -> {
             assertThat(accountService.getInitialAccounts().containsKey(temp), is(true));
         });
+    }
+
+    @Test
+    public void getAccountByName_Should_Return_Account_When_AccountInList() {
+        Account account = accountService.getAccountByName(accountTransfers, AccountService.ACC_1);
+
+        assertThat(account.getName(), is(AccountService.ACC_1));
+        assertThat(account.getBalance(), is(Account.STARTING_BALANCE));
+        assertThat(account.getEmail(), is(AccountService.ACC_1 + " email"));
     }
 }
