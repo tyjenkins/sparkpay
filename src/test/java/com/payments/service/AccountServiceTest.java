@@ -42,4 +42,32 @@ public class AccountServiceTest {
         assertThat(account.getBalance(), is(Account.STARTING_BALANCE));
         assertThat(account.getEmail(), is(AccountService.ACC_1 + " email"));
     }
+
+    @Test
+    public void parseRequestBodyForAccount_Should_ReturnAcc1_When_BodyParamEndsWithAcc1() {
+        String account = accountService.parseRequestBodyForAccount("accDropDown=" + AccountService.ACC_1);
+
+        assertThat(account, is(AccountService.ACC_1));
+    }
+
+    @Test
+    public void parseRequestBodyForAccount_Should_ReturnAcc2_When_BodyParamEndsWithAcc2() {
+        String account = accountService.parseRequestBodyForAccount("accDropDown=" + AccountService.ACC_2);
+
+        assertThat(account, is(AccountService.ACC_2));
+    }
+
+    @Test
+    public void parseRequestBodyForAccount_Should_ReturnAcc3_When_BodyParamEndsWithAcc3() {
+        String account = accountService.parseRequestBodyForAccount("accDropDown=" + AccountService.ACC_3);
+
+        assertThat(account, is(AccountService.ACC_3));
+    }
+
+    @Test
+    public void parseRequestBodyForAccount_Should_ReturnEmpty_When_BodyParamEndsWithNoneOfTheAccount() {
+        String account = accountService.parseRequestBodyForAccount("accDropDown=");
+
+        assertThat(account, is(""));
+    }
 }

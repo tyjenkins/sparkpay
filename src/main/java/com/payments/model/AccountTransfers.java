@@ -13,7 +13,7 @@ public class AccountTransfers {
 
     private Map<String, Account> accounts;
     private List<Transaction> transactions = new ArrayList<Transaction>();
-    private String message;
+    private String message = "";
 
     public Map<String, Account> getAccounts() {
         return accounts;

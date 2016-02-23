@@ -36,4 +36,16 @@ public class AccountService {
     public Account getAccountByName(AccountTransfers accountTransfers, String account) {
         return accountTransfers.getAccounts().get(account);
     }
+
+    public String parseRequestBodyForAccount(String body){
+        String selectedAccount = "";
+        if (body.endsWith(AccountService.ACC_1)) {
+            selectedAccount = AccountService.ACC_1;
+        } else if (body.endsWith(AccountService.ACC_2)) {
+            selectedAccount = AccountService.ACC_2;
+        } else if (body.endsWith(AccountService.ACC_3)) {
+            selectedAccount = AccountService.ACC_3;
+        }
+        return selectedAccount;
+    }
 }

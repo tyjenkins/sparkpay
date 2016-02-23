@@ -29,6 +29,8 @@
         </dl>
 
         <div class="actions"><input type="submit" value="Submit"></div>
+
+        <h3><#if accountTransfers.message??>${accountTransfers.message}<#else>-</#if></h3>
     </form>
     <br>
 

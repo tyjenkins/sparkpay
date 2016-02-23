@@ -1,5 +1,6 @@
 package com.payments.config;
 
+import com.google.common.base.CharMatcher;
 import com.payments.model.Account;
 import com.payments.model.AccountTransfers;
 import com.payments.model.Transaction;
@@ -69,14 +70,7 @@ public class WebConfig {
 		 * Submits the transactions page
 		 */
         post("/transactions", (req, res) -> {
-            String selectedAccount = "";
-            if (req.body().endsWith(AccountService.ACC_1)) {
-                selectedAccount = AccountService.ACC_1;
-            } else if (req.body().endsWith(AccountService.ACC_2)) {
-                selectedAccount = AccountService.ACC_2;
-            } else if (req.body().endsWith(AccountService.ACC_3)) {
-                selectedAccount = AccountService.ACC_3;
-            }
+            String selectedAccount = accountService.parseRequestBodyForAccount(req.body());
 
             Map<String, Object> map = new HashMap<>();
 
@@ -100,6 +94,7 @@ public class WebConfig {
 
             List<String> accountsList = accountService.getAccountNamesForDropDown(accountTransfers.getAccounts());
             map.put("accountsList", accountsList);
+            map.put("accountTransfers", accountTransfers);
 
             return new ModelAndView(map, "pay.ftl");
         }, new FreeMarkerEngine());
@@ -107,12 +102,18 @@ public class WebConfig {
 		 * Shows the pay page
 		 */
         post("/pay", (req, res) -> {
-            String body = req.body();
+            String[] params = req.body().split("&");
+            String fromAccount = accountService.parseRequestBodyForAccount(params[0]);
+            String toAccount = accountService.parseRequestBodyForAccount(params[1]);
+            Integer amount = Integer.valueOf(CharMatcher.DIGIT.retainFrom(params[2]));
 
             Map<String, Object> map = new HashMap<>();
 
             List<String> accountsList = accountService.getAccountNamesForDropDown(accountTransfers.getAccounts());
             map.put("accountsList", accountsList);
+
+            accountTransfers = transactionService.transfer(accountTransfers, fromAccount, toAccount, amount);
+            map.put("accountTransfers", accountTransfers);
 
             return new ModelAndView(map, "pay.ftl");
         }, new FreeMarkerEngine());
