@@ -27,6 +27,9 @@ public class TransactionService {
             accountTransfers.getTransactions().add(new Transaction(accountA, accountB, amount));
             accountTransfers.setMessage(AccountTransfers.TRANSFER_SUCCESS);
         }
+        else {
+            accountTransfers.setMessage(AccountTransfers.TRANSFER_FAILED);
+        }
 
         return accountTransfers;
     }
