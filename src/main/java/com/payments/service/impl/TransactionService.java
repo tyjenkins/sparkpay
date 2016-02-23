@@ -14,13 +14,15 @@ public class TransactionService {
         Account modA = accountTransfers.getAccounts().get(accountA);
         Account modB = accountTransfers.getAccounts().get(accountB);
 
-        modA.setBalance(modA.getBalance() - amount);
-        modB.setBalance(modB.getBalance() + amount);
+        if (modA.getBalance() - amount > 0) {
+            modA.setBalance(modA.getBalance() - amount);
+            modB.setBalance(modB.getBalance() + amount);
 
-        accountTransfers.getAccounts().put(accountA, modA);
-        accountTransfers.getAccounts().put(accountB, modB);
+            accountTransfers.getAccounts().put(accountA, modA);
+            accountTransfers.getAccounts().put(accountB, modB);
 
-        accountTransfers.getTransactions().add(new Transaction(accountA, accountB, amount));
+            accountTransfers.getTransactions().add(new Transaction(accountA, accountB, amount));
+        }
 
         return accountTransfers;
     }
