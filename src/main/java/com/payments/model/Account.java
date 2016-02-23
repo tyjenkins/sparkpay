@@ -10,6 +10,16 @@ public class Account {
     private Integer balance;
     private String email;
 
+    public Account(String name, Integer balance, String email) {
+        this.name = name;
+        this.balance = balance;
+        this.email = email;
+    }
+
+    public String showAccountDetails() {
+        return getName() + ": £" + getBalance();
+    }
+
     public String getName() {
         return name;
     }
