@@ -2,11 +2,14 @@ package com.payments.service;
 
 import com.payments.model.Account;
 import com.payments.model.AccountTransfers;
+import com.payments.model.Transaction;
 import com.payments.service.impl.AccountService;
 import com.payments.service.impl.TransactionService;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 import static org.hamcrest.Matchers.is;
@@ -83,5 +86,35 @@ public class TransactionServiceTest {
         assertThat(result.getTransactions().get(0).getFromAcc(), is(AccountService.ACC_1));
         assertThat(result.getTransactions().get(0).getToAcc(), is(AccountService.ACC_3));
         assertThat(result.getTransactions().get(0).getAmount(), is(200));
+    }
+
+    @Test
+    public void getTransactionsForAccount_Should_ReturnTransactionsFromAccountA_When_CalledWithAccountA() {
+        List<Transaction> transactionList = new ArrayList<>();
+        transactionList.add(new Transaction(AccountService.ACC_1, AccountService.ACC_2, 100));
+        transactionList.add(new Transaction(AccountService.ACC_3, AccountService.ACC_2, 120));
+        accountTransfers.setTransactions(transactionList);
+
+        List<Transaction> result = transactionService.getTransactionsForAccount(accountTransfers, AccountService.ACC_1);
+
+        assertThat(result.size(), is(1));
+        assertThat(result.get(0).getFromAcc(), is(AccountService.ACC_1));
+        assertThat(result.get(0).getToAcc(), is(AccountService.ACC_2));
+        assertThat(result.get(0).getAmount(), is(100));
+    }
+
+    @Test
+    public void getTransactionsForAccount_Should_ReturnTransactionsToAccountA_When_CalledWithAccountA() {
+        List<Transaction> transactionList = new ArrayList<>();
+        transactionList.add(new Transaction(AccountService.ACC_2, AccountService.ACC_1, 130));
+        transactionList.add(new Transaction(AccountService.ACC_3, AccountService.ACC_2, 100));
+        accountTransfers.setTransactions(transactionList);
+
+        List<Transaction> result = transactionService.getTransactionsForAccount(accountTransfers, AccountService.ACC_1);
+
+        assertThat(result.size(), is(1));
+        assertThat(result.get(0).getFromAcc(), is(AccountService.ACC_2));
+        assertThat(result.get(0).getToAcc(), is(AccountService.ACC_1));
+        assertThat(result.get(0).getAmount(), is(130));
     }
 }

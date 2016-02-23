@@ -5,6 +5,9 @@ import com.payments.model.AccountTransfers;
 import com.payments.model.Transaction;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Created by Jenkins on 23/02/2016.
  */
@@ -25,5 +28,17 @@ public class TransactionService {
         }
 
         return accountTransfers;
+    }
+
+    public List<Transaction> getTransactionsForAccount(AccountTransfers accountTransfers, String account) {
+        List<Transaction> transactions = new ArrayList<Transaction>();
+
+        for (Transaction transaction : accountTransfers.getTransactions()) {
+            if (transaction.getFromAcc().equals(account) || transaction.getToAcc().equals(account)) {
+                transactions.add(transaction);
+            }
+        }
+
+        return transactions;
     }
 }

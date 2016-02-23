@@ -6,14 +6,17 @@
     <body>
     <div>
         <h2>Accounts</h2>
+        <b>Person:</b>
         <select>
             <#list accountsList as account>
                 <option value="${account}">${account}</option>
             </#list>
         </select>
-        [ errors go here ]
-        <b>Person:</b> [ from Account.list() ]
-        <b>[ submit ]</b>
+        <br>
+        <form action="/transactions" method="post">
+            <div class="actions"><input type="submit" value="Submit"></div>
+        </form>
+        <br>
         <div>Balance: [amount]</div>
         <div>some awesome table with transaction amounts</div>
     </div>
